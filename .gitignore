@@ -1,0 +1,18 @@
+*.class
+
+# package file
+*.war
+
+# maven
+target/
+
+# idea
+.idea/
+*.iml
+
+# temp
+*.log
+*.diff
+*.patch
+*.temp
+*.cache
