@@ -111,6 +111,11 @@
       <version>1.1.2</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+      <version>1.1.2</version>
+    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
@@ -249,6 +254,7 @@
       <artifactId>jedis</artifactId>
       <version>2.9.0</version>
     </dependency>
+
   </dependencies>
 
 
