@@ -25,6 +25,13 @@ public class CategoryManageController {
     @Autowired
     private ICategoryService iCategoryService;
 
+    /**
+     * 添加品类
+     * @param session
+     * @param categoryName
+     * @param parentId
+     * @return
+     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse addCategory(HttpSession session, String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
@@ -36,6 +43,13 @@ public class CategoryManageController {
         return iCategoryService.addCategory(categoryName, parentId);
     }
 
+    /**
+     * 修改品类名称
+     * @param session
+     * @param categoryId
+     * @param categoryName
+     * @return
+     */
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
     public ServerResponse setCategoryName(HttpSession session, Integer categoryId, String categoryName) {
@@ -47,6 +61,12 @@ public class CategoryManageController {
         return iCategoryService.updateCategoryName(categoryId, categoryName);
     }
 
+    /**
+     * 递归获取品类id
+     * @param session
+     * @param categoryId
+     * @return
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCategoryAndDeepChildrenCategory(HttpSession session, @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
