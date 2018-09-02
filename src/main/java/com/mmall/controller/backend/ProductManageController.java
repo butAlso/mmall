@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/manage/product/")
+@RequestMapping("/manage/product")
 public class ProductManageController {
 
     @Autowired
@@ -43,7 +43,7 @@ public class ProductManageController {
      * @param product
      * @return
      */
-    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product) {
         // 用户身份验证
@@ -60,7 +60,7 @@ public class ProductManageController {
      * @param productId
      * @return
      */
-    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getDetail(HttpSession session, Integer productId) {
         // 用户身份验证
@@ -78,7 +78,7 @@ public class ProductManageController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
@@ -99,7 +99,7 @@ public class ProductManageController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse productSearch(HttpSession session, String productName, Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -119,7 +119,7 @@ public class ProductManageController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file", required = false)MultipartFile file,
                                  HttpServletRequest request) {
@@ -146,7 +146,7 @@ public class ProductManageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "richtext_img_upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/richtext_img_upload", method = RequestMethod.POST)
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file,
                                  HttpServletRequest request, HttpServletResponse response) {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session) {
         ServerResponse<User> response = iUserService.login(username, password);
@@ -40,7 +40,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);
@@ -52,7 +52,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> register(User user) {
         return iUserService.register(user);
@@ -64,7 +64,7 @@ public class UserController {
      * @param type
      * @return
      */
-    @RequestMapping(value = "validation", method = RequestMethod.POST)
+    @RequestMapping(value = "/validation", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String str, String type) {
         return iUserService.checkValid(str, type);
@@ -83,7 +83,7 @@ public class UserController {
      * @param username
      * @return
      */
-    @RequestMapping(value = "password/question", method = RequestMethod.GET)
+    @RequestMapping(value = "/password/question", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username) {
         return iUserService.selectQuestion(username);
@@ -96,7 +96,7 @@ public class UserController {
      * @param answer
      * @return
      */
-    @RequestMapping(value = "password/answer", method = RequestMethod.POST)
+    @RequestMapping(value = "/password/answer", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
         return iUserService.checkAnswer(username, question, answer);
@@ -109,7 +109,7 @@ public class UserController {
      * @param passwordNew
      * @return
      */
-    @RequestMapping(value = "password", method = RequestMethod.POST)
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -123,7 +123,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "information", method = RequestMethod.PUT)
+    @RequestMapping(value = "/information", method = RequestMethod.PUT)
     @ResponseBody
     public ServerResponse<User> update_information(HttpSession session, User user) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
@@ -143,7 +143,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "information", method = RequestMethod.GET)
+    @RequestMapping(value = "/information", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> get_information(HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
