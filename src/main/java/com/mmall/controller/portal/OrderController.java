@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -115,5 +116,82 @@ public class OrderController {
             return ServerResponse.createBySuccess(true);
         }
         return ServerResponse.createBySuccess(false);
+    }
+
+    /**
+     * 获取购物车中勾选商品信息vo
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/order_cart_product", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getOrderCartProduct(HttpSession session) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderCartProduct(user.getId());
+    }
+
+    /**
+     * 根据收货地址新建订单，然后组装购物车勾选项，生成订单详情
+     * @param session
+     * @param shippingId
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse create(HttpSession session, Integer shippingId) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.createOrder(user.getId(), shippingId);
+    }
+
+    /**
+     * 根据订单号取消订单
+     * @param session
+     * @param orderNo
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ServerResponse cancel(HttpSession session, Long orderNo) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.cancel(user.getId(), orderNo);
+    }
+
+    /**
+     * 获取订单详情
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse detail(HttpSession session, Long orderNo) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderDetail(user.getId(), orderNo);
+    }
+
+    /**
+     * 按时间降序获取订单列表
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderList(user.getId(), pageNum, pageSize);
     }
 }
